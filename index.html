@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UberEats</title>
+    <link rel="stylesheet" href="https://unpkg.com/flexboxgrid2@7.2.1/flexboxgrid2.min.css">
+    <link href="style.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="https://yastatic.net/jquery/2.1.3/jquery.min.js"></script>
+    <script type="text/javascript">
+        jQuery(document).ready(function($){
+            $('<style>'+
+                '.scrollTop'//
+            +'</style>').appendTo('body');
+            var
+            speed = 550,
+            $scrollTop = $('<a href="#" class="scrollTop">').appendTo('body');		
+            $scrollTop.click(function(e){
+                e.preventDefault();
+                $( 'html:not(:animated),body:not(:animated)' ).animate({ scrollTop: 0}, speed );
+            });
+        
+            //появление
+            function show_scrollTop(){
+                ( $(window).scrollTop() > 330 ) ? $scrollTop.fadeIn(700) : $scrollTop.fadeOut(700);
+            }
+            $(window).scroll( function(){ show_scrollTop(); } );
+            show_scrollTop();
+        });
+        </script>
+</head>
+<script type="text/javascript">
+
+    var lastResFind = ""; // последний удачный результат
+
+    var copy_page = ""; // копия страницы в ихсодном виде
+
+    function TrimStr(s) {
+
+        s = s.replace(/^\s+/g, '');
+
+        return s.replace(/\s+$/g, '');
+
+    }
+    function FindOnPage(inputId) {//ищет текст на странице, в параметр передается ID поля для ввода
+
+        var obj = window.document.getElementById(inputId);
+
+        var textToFind;
+
+        if (obj) {
+            textToFind = TrimStr(obj.value);//обрезаем пробелы
+        } else {
+            alert("Введенная фраза не найдена");
+            return;
+        }
+
+        if (textToFind == "") {
+            alert("Вы ничего не ввели");
+            return;
+        }
+        if (textToFind.length < 2) {
+            alert("Слишком короткий текст")
+            return;
+        }
+
+        if (copy_page.length > 0)
+            document.body.innerHTML = copy_page;
+
+        else copy_page = document.body.innerHTML;
+
+        document.body.innerHTML = document.body.innerHTML.replace(eval("/name=" + lastResFind + "/gi"), " ");//стираем предыдущие якори для скрола
+        document.body.innerHTML = document.body.innerHTML.replace(eval("/" + textToFind + "/gi"), "<a name=" + textToFind + " style='background:yellow; font-size:15px'>" + textToFind + "</a>"); //Заменяем найденный текст ссылками с якорем;
+        lastResFind = textToFind; // сохраняем фразу для поиска, чтобы в дальнейшем по ней стереть все ссылки
+        window.location = '#' + textToFind;//перемещаем скрол к последнему найденному совпадению
+
+    }
+
+</script>
+<body>
+    <header>
+        <div class="header">
+            <div class="uber">
+                <div class="logo">
+                    <a href="https://pushkin-traktir-korchigin.netlify.app/" target="_blank"><img src="Stores/logo.svg"></a>
+                </div>
+            </div>
+            <div class="inter">
+                <div class="form">
+                    <a href="https://pushkin-traktir-korchigin.netlify.app/"><button  class="button">Войти</button></a>
+                    <img src = "Stores/basket.png">
+                </div>
+            </div>
+        </div>
+    </header>
+    <section class="section1">
+        <div class="search_div">
+            <div class="row">
+                <form class="col-xs-12 col-md-12 col-lg-12 col-xl-12">
+                   
+                        <p class="search_p">
+                            <input type="text" class="search_form_input" placeholder="Поиск по ресторанам и кухням" id="text-to-find" value="" >
+                            
+                        </p>
+
+                    
+                </form>
+            </div>
+        </div>
+    </section>
+    <section class="section2">
+        <div class="rest">
+            <h2>Рестораны в Москве</h2>
+            <div class="row">
+                <div class="col-xs-12 col-md-6 col-lg-4 col-xl-4 card">
+                    <a href="https://pushkin-traktir-korchigin.netlify.app/" target="_blank" class="outsite">
+                    <div class="row1"><img src="Stores/mucduc.png" class="img">
+                    <strong><p>Макдоналдс — Газетный</p></strong>
+                    <p class="cost">₽₽ • Бургеры</p>
+                    <p class="time">25 - 35 мин</p>
+                    </div></a>
+                </div>
+                <div class="col-xs-12 col-md-6 col-lg-4 col-xl-4 card">
+                    <a href="https://pushkin-traktir-korchigin.netlify.app/" target="_blank" class="outsite">
+                    <div class="row1"><img src="Stores/dimsum.png" class="img">
+                    <strong><p>DimSum & Co — ЦДМ</p></strong>
+                    <p class="cost">₽ • Японская • Китайская • Азиатская</p>
+                    <p class="time">40 - 50 мин</p>
+                </div></a>
+                </div>
+                <div class="col-xs-12 col-md-6 col-lg-4 col-xl-4 card">
+                    <a href="https://pushkin-traktir-korchigin.netlify.app/" target="_blank" class="outsite">
+                    <div class="row1"><img src="Stores/dvijok.png" class="img">
+                        <strong><p>ДвижОК — Манежная</p></strong>
+                    <p class="cost">₽ • Американская • Европейская</p>
+                    <p class="time">35 - 45 мин</p>
+                </div></a>
+                </div>
+                <div class="col-xs-12 col-md-6 col-lg-4 col-xl-4 card">
+                    <a href="https://pushkin-traktir-korchigin.netlify.app/" target="_blank" class="outsite">
+                        <div class="row1">
+                            <img src="Stores/NHA.png" class="img">
+                            <strong><p>НЯ — NHA</p></strong>
+                            <p class="cost">₽₽ • Вьетнамская</p>
+                            <p class="time">30 - 40 мин</p>
+                        </div></a>
+                </div>
+                <div class="col-xs-12 col-md-6 col-lg-4 col-xl-4 card">
+                    <a href="https://pushkin-traktir-korchigin.netlify.app/" target="_blank" class="outsite">
+                    <img src="Stores/pointczu.png" class="img">
+                    <strong><p>Точка Дзы — Цветной</p></strong>
+                    <p class="cost">₽₽ • Вьетнамская</p>
+                    <p class="time">40 - 50 мин</p></a>
+                </div>
+                <div class="col-xs-12 col-md-6 col-lg-4 col-xl-4 card">
+                    <a href="https://pushkin-traktir-korchigin.netlify.app/" target="_blank" class="outsite">
+                    <img src="Stores/cinnabon.png" class="img">
+                    <strong><p>Cinnabon</p></strong>
+                    <p class="cost">₽ • Выпечка • Десерты • Капкейки</p>
+                    <p class="time">25 - 35 мин</p></a>
+                </div>
+                <div class="col-xs-12 col-md-6 col-lg-4 col-xl-4 card">
+                    <a href="https://pushkin-traktir-korchigin.netlify.app/" target="_blank" class="outsite">
+                    <img src="Stores/pizzelove.png" class="img">
+                    <strong><p>PIZZELOVE</p></strong>
+                    <p class="cost">₽₽ • Пицца</p>
+                    <p class="time">15 - 25 мин</p></a>
+                </div>
+                <div class="col-xs-12 col-md-6 col-lg-4 col-xl-4 card">
+                    <a href="https://pushkin-traktir-korchigin.netlify.app/" target="_blank" class="outsite">
+                    <img src="Stores/zucafe.png" class="img">
+                    <strong><p>Zю кафе — Тверская</p></strong>
+                    <p class="cost">₽₽ • Японская</p>
+                    <p class="time">25 - 35 мин</p></a>
+                </div>
+                <div class="col-xs-12 col-md-6 col-lg-4 col-xl-4 card">
+                    <a href="https://pushkin-traktir-korchigin.netlify.app/" target="_blank" class="outsite">
+                    <img src="Stores/BQcafe.png" class="img">
+                    <strong><p>Bar BQ Cafe — Манежная</p></strong>
+                    <p class="cost">₽₽₽ • Европейская</p>
+                    <p class="time">30 - 40 мин</p> </a>        
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer>
+        <div class="footer">
+            <div class="ubereats col-xs-12 col-md-4 col-lg-4 col-xl-4">
+                <div class="img">
+                    <img src="Stores/white-logo.svg"> 
+                </div>
+                
+            </div>
+            <hr>
+                
+
+            <div class="triple-columns row">
+
+                <div class="column1 col-xs-12 col-md-4 col-lg-4 col-xl-4">
+                    <form class="form2">
+                        <img src="Stores/Shape.png" class="img_icon">
+                            <select size="1" class="select1">
+                                
+                                <option value="russian">русский</option>
+                                <option value="english">english</option>
+                            </select>
+                            
+                    </form>
+                    <div class="column1under col-xs-3 col-md-3 col-lg-3 col-xl-3">
+                        <p><span class="span1">#</span>UberEats</p>
+                        <div class="icons">
+                            <a href="https://www.facebook.com/" target="_blank"><img src="Stores/ic/24/social/facebook.svg"></a>
+                            <a href="https://twitter.com/" target="_blank"><img src="Stores/ic/24/social/twitter.svg"></a>
+                            <a href="https://www.instagram.com/" target="_blank"><img src="Stores/ic/24/social/instagram.svg"></a>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="column2 col-xs-12 col-md-4 col-lg-4 col-xl-4">
+                    
+                    
+                            <a href="https://pushkin-traktir-korchigin.netlify.app/" target="_blank" >Об UberEats</a><br>
+                            <a href="https://pushkin-traktir-korchigin.netlify.app/" target="_blank"><span>Станьте партнёром по доставке</span></a><br>
+                            <a href="https://pushkin-traktir-korchigin.netlify.app/" target="_blank"><span>Станьте парнёром-рестораном</span></a>
+                       
+                </div>
+                <div class="column3 col-xs-12 col-md-4 col-lg-4 col-xl-4">
+                    
+                            <a href="https://pushkin-traktir-korchigin.netlify.app/" target="_blank"><span>Все города</span></a><br>
+                            <a href="https://pushkin-traktir-korchigin.netlify.app/" target="_blank"><span>Цены</span></a><br>
+                            <a href="https://pushkin-traktir-korchigin.netlify.app/" target="_blank"><span>Помощь</span></a><br>
+                            <a href="https://pushkin-traktir-korchigin.netlify.app/" target="_blank"><span>FAQs</span></a>
+                     
+                </div>
+                
+            </div>
+            <hr>
+            <div class="applegoogle">
+                <div class="applestore"><a href="https://www.google.ru/" target="_blank"><img src="Stores/appstore.png"></a></div>
+                <div class="googleplay"><a href="https://www.google.ru/" target="_blank"><img src="Stores/googleplay.png"></a></div>
+                
+            </div>
+            <hr>
+            <div class="under row">
+                <div class="col-xs-12 col-md-4 col-lg-4 col-xl-4"><a href="https://pushkin-traktir-korchigin.netlify.app/" target="_blank"><span>© 2017 Uber Technologies Inc.</span></a></div>
+                <div class="col-xs-12 col-md-4 col-lg-4 col-xl-4"><a href="https://pushkin-traktir-korchigin.netlify.app/" target="_blank"><span>Обработка персональных данных</span></a></div>
+                <div class="col-xs-12 col-md-4 col-lg-4 col-xl-4"><a href="https://pushkin-traktir-korchigin.netlify.app/" target="_blank"><span>Пользовательское соглашение</span></a></div>
+            </div>
+        </div>
+        <!--<div class="button-up" id="b" style="display: block;"><img src="Stores/btn-up.svg" alt="btn-up" title="btn-up">
+		</div>-->
+    </footer>
+    
+</body>
+</html>
